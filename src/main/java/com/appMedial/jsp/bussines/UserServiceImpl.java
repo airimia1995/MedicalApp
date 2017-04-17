@@ -15,15 +15,12 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public User findById(int id) {
-		return userRepository.findOne(id);
-	}
+
 
 	@Override
 	public User save(User user) {
 		user.setProfile("pacient");
-//		Pacient pacient = new Pacient();
-//		pacient.setUser(user);
+
 		return userRepository.save(user);
 	}
 
@@ -36,6 +33,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByEmail(String email){
 		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public List<User> findAllByPacient(List<Pacient> pacienti) {
+		// TODO Auto-generated method stub
+		return userRepository.findAllByPacient(pacienti);
+	}
+
+	@Override
+	public User findByPacient(Pacient pacient) {
+		// TODO Auto-generated method stub
+		return userRepository.findByPacient(pacient);
 	}
 	
 

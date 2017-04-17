@@ -1,5 +1,9 @@
 package com.appMedial.jsp.ui;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.appMedial.jsp.bussines.MedicService;
 import com.appMedial.jsp.bussines.PacientService;
 import com.appMedial.jsp.bussines.UserService;
+import com.appMedial.jsp.model.Medic;
 import com.appMedial.jsp.model.Pacient;
 import com.appMedial.jsp.model.User;
+
+
 
 
 
@@ -28,6 +36,9 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private PacientService pacientService;
+	@Autowired
+	private MedicService medicService;
+	
 	
 	@RequestMapping(value ={ "/userLogin" }, method = RequestMethod.GET)
 	public String logIN( ModelMap model) {
@@ -65,9 +76,32 @@ public class UserController {
 	public String welcomeMedic(ModelMap model){
 		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	      String name = auth.getName();
-	      System.out.print(name);
 	      User user = userService.findByEmail(name);
 	      model.addAttribute("user",user);
+	      
+	     
+	      
+	    	  Medic medic = medicService.findByUser(user);
+	    	  List<Pacient> pacienti = pacientService.findAllByMedic(medic);
+	    	  List<User> useri = new LinkedList<User>();
+//	    	  List<User> useri1 = userService.findAllByPacient(pacienti);
+	    	 
+    	      for(Pacient p : pacienti){
+    	    	  User u = userService.findByPacient(p);
+    		  useri.add(u);
+	    	  }
+	    	
+    	  model.addAttribute("useri", useri);
+	     
+	      
 		return "welcome";
 	}
+	
+	@RequestMapping(value={"/addPacient"}, method = RequestMethod.GET)
+	public String addPacient(ModelMap model){
+		
+		return "addPacient";
+		
+	}
+	
 }
