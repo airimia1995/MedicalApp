@@ -33,16 +33,30 @@ public class Medic {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "medic")
 	private Set<Pacient> pacient = new HashSet<Pacient>(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "medic")
+	private Set<Reteta> reteta = new HashSet<Reteta>(0);
+	
 	public int getMedic_id() {
 		return medic_id;
 	}
-
+	public void addPacient(Pacient p){
+		pacient.add(p);
+	}
 	public void setMedic_id(int medic_id) {
 		this.medic_id = medic_id;
 	}
 
 	public User getUser() {
 		return user;
+	}
+
+	public Set<Pacient> getPacient() {
+		return pacient;
+	}
+
+	public void setPacient(Set<Pacient> pacient) {
+		this.pacient = pacient;
 	}
 
 	public void setUser(User user) {
@@ -55,6 +69,12 @@ public class Medic {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public Set<Reteta> getReteta() {
+		return reteta;
+	}
+	public void setReteta(Set<Reteta> reteta) {
+		this.reteta = reteta;
 	}
 
 	

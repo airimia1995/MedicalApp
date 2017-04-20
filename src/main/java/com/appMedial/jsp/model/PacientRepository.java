@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PacientRepository extends CrudRepository<Pacient, Integer>  {
 	List<Pacient> findAllByMedic(Medic medic);
-	
+	Pacient findByUser(User u);
 
 }

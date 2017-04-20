@@ -16,22 +16,24 @@
 	
 	 <sec:authorize access="hasAuthority('medic')">
 	 <button onclick="location.href='/addPacient'" >Add a new pacient</button>
-	 </sec:authorize>
 	 
-	 
+	</sec:authorize>
+	 <sec:authorize access="hasAuthority('medic')">
 	  <table>
         <tr>
-            <td>NAME</td><td></td>
+            <td>LISTA PACIENTI</td><td></td>
         </tr>
-        <c:forEach items="${useri}" var="useri">
-        
-            <tr>
-            <td>Pacient email: <c:out value="${useri.email}"/></td>
+        <c:forEach items="${useri}" var="foruser">
+           	<tr>
+           	<td><a href="<c:url value='/reteta-${foruser.email}-pacient' />">${foruser.email}</a></td>
+            <td>Pacient email: <c:out value="${foruser.email}"/></td>
+            <td>Nume: <c:out value="${foruser.firstName}"/></td>
+            <td>Prenume: <c:out value="${foruser.lastName}"/></td>
+            
         	</tr>
-        	
         </c:forEach>
       </table>
-	
+	</sec:authorize>
 	
 	
 </body>
