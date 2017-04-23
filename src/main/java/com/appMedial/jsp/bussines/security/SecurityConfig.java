@@ -16,8 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
+/*
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.inMemoryAuthentication().withUser("ian").password("ian").roles("USER");
+    auth.inMemoryAuthentication().withUser("dan").password("dan").roles("USER");
+    auth.inMemoryAuthentication().withUser("chris").password("chris").roles("USER");
+  }
+}*/
 @Configuration
 @EnableWebSecurity
 @RestController
@@ -33,20 +43,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 	        auth.userDetailsService(securityService);//.passwordEncoder(passwordEncoder());
 	    }
+//	    @Autowired
+//	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//	      auth.inMemoryAuthentication().withUser("ian").password("ian").roles("USER");
+//	      auth.inMemoryAuthentication().withUser("dan").password("dan").roles("USER");
+//	      auth.inMemoryAuthentication().withUser("chris").password("chris").roles("USER");
+//	    }
 
 	    @Bean
 	    public PasswordEncoder passwordEncoder() {
 	        return new BCryptPasswordEncoder();
 	    }
 
-	    //TODO: change authority form admin to ROLE_ADMIN
+	 
 	    @Override
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http.httpBasic().and()
 	                .authorizeRequests()
 	                .antMatchers("/","userLogin").permitAll()
-	                .antMatchers("/addPacient","/reteta-${foruser.email}-pacient").hasAuthority("medic")
-	                .antMatchers("/welcome").hasAnyAuthority("medic","pacient")
+	                .antMatchers("/addPacient","/reteta-*").hasAuthority("medic")
+	                .antMatchers("/welcome","/chat").hasAnyAuthority("medic","pacient")
 	                .and()
 	                .formLogin().loginPage("/userLogin")
 	                .defaultSuccessUrl("/welcome", true)

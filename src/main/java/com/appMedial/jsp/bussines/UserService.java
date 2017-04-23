@@ -20,4 +20,6 @@ public interface UserService {
 	User findByEmail(String email);
 	
 	User findByPacient(Pacient pacient);
+	
+	List<User> findAll();
 }

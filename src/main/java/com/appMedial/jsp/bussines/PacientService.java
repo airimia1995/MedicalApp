@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.appMedial.jsp.model.Medic;
 import com.appMedial.jsp.model.Pacient;
+import com.appMedial.jsp.model.Reteta;
 import com.appMedial.jsp.model.User;
 
 
@@ -16,4 +17,6 @@ public interface PacientService {
 	Pacient findByUser(User u);
 	
 	public Pacient create(Pacient pacient);
+	
+	List<Reteta> findAllByReteta(Pacient pacient);
 }

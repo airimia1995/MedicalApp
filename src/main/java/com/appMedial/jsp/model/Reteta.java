@@ -1,6 +1,7 @@
 package com.appMedial.jsp.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -44,8 +46,8 @@ public class Reteta {
 	@JoinColumn(name = "PACIENT_ID", nullable = false)
 	private Pacient pacient;
 	
-	@OneToMany(mappedBy = "reteta", cascade = CascadeType.ALL, orphanRemoval = true)
-	Set<RetetaMedicament> retetaMedicament;
+	@ManyToMany(mappedBy = "retetaList")
+	Set<Medicament> medicamentList;
 
 	public int getReteta_id() {
 		return reteta_id;
@@ -95,14 +97,13 @@ public class Reteta {
 		this.pacient = pacient;
 	}
 
-	public Set<RetetaMedicament> getRetetaMedicament() {
-		return retetaMedicament;
+	public Set<Medicament> getMedicamentList() {
+		return medicamentList;
 	}
 
-	public void setRetetaMedicament(Set<RetetaMedicament> retetaMedicament) {
-		this.retetaMedicament = retetaMedicament;
+	public void setMedicamentList(Set<Medicament> medicamentList) {
+		this.medicamentList = medicamentList;
 	}
-	
 	
 	
 }

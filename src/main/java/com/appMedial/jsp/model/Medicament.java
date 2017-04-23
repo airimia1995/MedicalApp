@@ -1,5 +1,6 @@
 package com.appMedial.jsp.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -8,9 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="MEDICAMENT")
@@ -19,7 +22,7 @@ public class Medicament {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="MEDICAMENT_ID")
-	private int medicacament_id;
+	private int medicament_id;
 	
 	@Column(name="NUME")
 	private String nume;
@@ -33,15 +36,27 @@ public class Medicament {
 	@Column(name="CONCENTRATIE")
 	private int concentratie;
 	
-	@OneToMany(mappedBy = "medicament", cascade = CascadeType.ALL, orphanRemoval = true)
-	Set<RetetaMedicament> retetaMedicament;
+	@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "retetaMedicament", 
+    joinColumns = @JoinColumn(name = "medicament_id", referencedColumnName = "medicament_id"), 
+    inverseJoinColumns = @JoinColumn(name = "reteta_id", referencedColumnName = "reteta_id"))
+	Set<Reteta> retetaList;
 
-	public int getMedicacament_id() {
-		return medicacament_id;
+
+	public int getMedicament_id() {
+		return medicament_id;
 	}
 
-	public void setMedicacament_id(int medicacament_id) {
-		this.medicacament_id = medicacament_id;
+	public void setMedicament_id(int medicament_id) {
+		this.medicament_id = medicament_id;
+	}
+
+	public Set<Reteta> getRetetaList() {
+		return retetaList;
+	}
+
+	public void setRetetaList(Set<Reteta> retetaList) {
+		this.retetaList = retetaList;
 	}
 
 	public String getNume() {
@@ -74,14 +89,6 @@ public class Medicament {
 
 	public void setConcentratie(int concentratie) {
 		this.concentratie = concentratie;
-	}
-
-	public Set<RetetaMedicament> getRetetaMedicament() {
-		return retetaMedicament;
-	}
-
-	public void setRetetaMedicament(Set<RetetaMedicament> retetaMedicament) {
-		this.retetaMedicament = retetaMedicament;
 	}
 	
 }

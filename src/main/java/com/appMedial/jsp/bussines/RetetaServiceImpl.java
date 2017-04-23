@@ -17,4 +17,10 @@ public class RetetaServiceImpl implements RetetaService {
 		return retetaRepository.save(reteta);
 	}
 
+	@Override
+	public Reteta findByName(String name) {
+		// TODO Auto-generated method stub
+		return retetaRepository.findByBoala(name);
+	}
+
 }

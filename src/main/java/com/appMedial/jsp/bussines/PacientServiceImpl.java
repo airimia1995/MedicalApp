@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.appMedial.jsp.model.Medic;
 import com.appMedial.jsp.model.Pacient;
 import com.appMedial.jsp.model.PacientRepository;
+import com.appMedial.jsp.model.Reteta;
 import com.appMedial.jsp.model.User;
 
 @Component
@@ -37,6 +38,12 @@ public class PacientServiceImpl implements PacientService {
 	public Pacient create(Pacient pacient) {
 		// TODO Auto-generated method stub
 		return pacientRepository.save(pacient);
+	}
+
+	@Override
+	public List<Reteta> findAllByReteta(Pacient pacient) {
+		// TODO Auto-generated method stub
+		return pacientRepository.findAllByReteta(pacient);
 	}
 
 }
