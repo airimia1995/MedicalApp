@@ -5,16 +5,107 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <title>Chat</title>
-<script src="sockjs-0.3.4.js"></script>
-<script src="stomp.js"></script>
-<script src="jquery-2.1.0.min.js"></script>
-<link href="chat.css" rel="stylesheet" type="text/css">
-</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.2/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+
+ <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
 </head>
 <body>
-<p>muie radu</p>
+<style>
+body {
+	font-size: 13px;
+	font-family: Monaco, monospace;
+}
+
+.chat {
+  height: 200px;
+  width: 600px;
+  overflow-y: scroll;
+  background-color: black;
+  border: 3px solid #778899;
+  border-radius: 5px;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: normal;
+  left: -1px;
+  padding: 10px 7px 5px;
+}
+
+.chat-sender {
+	color: #89BDFF;
+}
+
+.chat-recipient {
+	color: #65B042;
+}
+
+#userList {
+	float: left;
+	width: 100px;
+	height: 254px;
+	margin-right: 10px;
+	overflow-y: scroll;
+  overflox-x: scroll;
+  border: 3px solid #6495ED;
+  border-radius: 5px;
+}
+
+.chat-container {
+	position: relative;
+	float: left;
+}
+
+.chat-input {
+	bottom: 0;
+	float: left;
+	border-radius: 5px;
+	border: 3px solid #9932CC;
+	outline: none;
+}
+
+.chat-submit {
+  bottom: 0;
+  height: 34px;
+  width: 60px;
+  float: right;
+  margin-top: 2px;
+  background-color: #f38709;
+  border: 3px solid #f38709;
+  border-radius: 5px;
+  font-family: Helvetica, Verdana, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+}
+
+#users {
+	height: 200%;
+	width: 100%;
+	overflow: auto;
+	border: 0px;
+}
+
+.user-selected {
+	background-color: #6495ED;
+	color: white;
+}
+
+.user-unselected {
+	background-color: white;
+  color: black;
+}
+
+.newmessage {
+	float: right;
+	font-size: 20px;
+	line-height: 70%;
+}
+
+</style>
   <div>
     <div id="userList">
     </div>
@@ -109,7 +200,7 @@
       
       function getChatWindow(userName) {
         var existingChats = $('.chat-container');
-        var elementId = 'chat-' + userName;
+        var elementId = 'chat-' + userName.substring(0, 4);
         var containerId = elementId + '-container';
         var selector = '#' + containerId;
         var inputId = 'input-' + elementId;
@@ -117,7 +208,7 @@
           var chatContainer = $('<div>', {id: containerId, class: 'chat-container'});
           var chatWindow = $('<div>', {id: elementId, class: 'chat'});
           var chatInput = $('<textarea>', {id: inputId, type: 'text', class: 'chat-input', rows: '2', cols: '75', 
-            placeholder: 'Enter a message.  Something deep and meaningful.  Something you can be proud of.'});
+            placeholder: 'Enter a message'});
           var chatSubmit = $('<button>', {id: 'submit-' + elementId, type: 'submit', class: 'chat-submit'})
           chatSubmit.html('Send');
           
@@ -173,6 +264,7 @@
       }
       
       $(document).ready(function() {
+          alert("ceva");
         connect();
       });
   </script>

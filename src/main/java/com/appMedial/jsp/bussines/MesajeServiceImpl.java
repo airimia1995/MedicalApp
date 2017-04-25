@@ -14,14 +14,12 @@ public  class MesajeServiceImpl implements MesajeService {
 	private MesajeRepository mesajeRepository; 
 	@Override
 	public List<Mesaje> findByReceiver_idAndSender_id(String  recid, String sendid) {
-		// TODO Auto-generated method stub
 		
 	return mesajeRepository.findAllByReceiver_idAndSender_id(recid, sendid);
 	
 	}
 	@Override
 	public Mesaje save(Mesaje mesaje) {
-		// TODO Auto-generated method stub
 		return mesajeRepository.save(mesaje);
 	}
 

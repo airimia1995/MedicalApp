@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 	        http.httpBasic().and()
 	                .authorizeRequests()
 	                .antMatchers("/","userLogin").permitAll()
-	                .antMatchers("/addPacient","/reteta-*").hasAuthority("medic")
+	                .antMatchers("/addPacient","/reteta-*","/patientList").hasAuthority("medic")
 	                .antMatchers("/welcome","/chat").hasAnyAuthority("medic","pacient")
 	                .and()
 	                .formLogin().loginPage("/userLogin")

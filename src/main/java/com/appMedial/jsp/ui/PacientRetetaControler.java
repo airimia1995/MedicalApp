@@ -31,7 +31,7 @@ public class PacientRetetaControler {
 	@Autowired
 	private RetetaService retetaService;
 	
-	@RequestMapping(value ={ "/listReteta"},method = RequestMethod.GET)
+	@RequestMapping(value ={ "/viewRecipes"},method = RequestMethod.GET)
 	public String  afisare(ModelMap model){
 		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	      String name = auth.getName();
@@ -40,15 +40,15 @@ public class PacientRetetaControler {
 	      
 	      Set<Reteta> retete = pacient.getReteta();
 	      model.addAttribute("retete",retete);
-		return "listReteta";
+		return "viewRecipes1";
 	}
 	
-	@RequestMapping(value="/afisareReteta-{boala}",  method = RequestMethod.GET)
+	@RequestMapping(value="/viewRecipes-{boala}",  method = RequestMethod.GET)
 	public String reteta(@PathVariable String boala, ModelMap model){
 		Reteta reteta = retetaService.findByName(boala);
 		Set<Medicament> medicamente = reteta.getMedicamentList();
 		model.addAttribute("medicamente", medicamente);
-		return "afisareReteta";
+		return "viewRecipe-drugs1";
 	}
 
 }

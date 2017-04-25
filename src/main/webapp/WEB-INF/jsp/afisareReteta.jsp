@@ -25,18 +25,16 @@
                         <th width="100"></th>
                     </tr>
                 </thead>
-                <tbody>
+              <tbody>
                 <c:forEach items="${medicamente}" var="medicamente">
                     <tr>
                         <td>${medicamente.nume}</td>
                         <td>${medicamente.concentratie}</td>
                         <td>${medicamente.tip}</td>
-                       	<td>${medicamente.forma}</td>
-               
-                    </tr>
+                      	<td>${medicamente.forma}</td>
                 </c:forEach>
                 </tbody>
-            </table>
+                </table>
         </div>
        
     </div>

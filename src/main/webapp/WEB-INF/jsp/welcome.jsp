@@ -12,7 +12,7 @@
 
 </head>
 <body>
-	<mytags:navbar/>
+	
    	<p>Welcome ${user.profile} ${user.firstName} ${user.lastName}</p>
    	<br><br>
 	<button onclick="location.href='/logout'" >Logout</button>

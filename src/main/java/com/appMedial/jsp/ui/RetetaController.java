@@ -41,8 +41,18 @@ public class RetetaController {
 	@Autowired
 	private RetetaService retetaService;
 	
-	
-	@RequestMapping(value = "/reteta-{user_email}-pacient", method = RequestMethod.POST)
+	@RequestMapping(value="/patientList/recipe-{user_email}-patient",  method = RequestMethod.GET)
+	public String reteta(@PathVariable String user_email, ModelMap model){
+		
+		User user = userService.findByEmail(user_email);
+      	Pacient pacient = pacientService.findByUser(user);
+        model.addAttribute("employee",pacient);
+        Reteta reteta = new Reteta();
+        model.addAttribute("reteta", reteta);
+		//return "reteta";
+        return "addRecipe1";
+	}
+	@RequestMapping(value = "/patientList/recipe-{user_email}-patient", method = RequestMethod.POST)
 	public String addReteta(@ModelAttribute("reteta") @Valid Reteta reteta,@PathVariable String user_email, ModelMap model){
 		
 		User user_pacient = userService.findByEmail(user_email);
@@ -58,7 +68,7 @@ public class RetetaController {
 	    retetaService.save(reteta);
 		
 	
-		return "reteta";
+		return "addRecipe1";
 	}
 	
 	@RequestMapping(value="/retetaM-{boala}")
@@ -66,7 +76,7 @@ public class RetetaController {
 //		List<Medicament> medicamente = medicamentService.findAllByNume();
 //		model.addAttribute("medicamente", medicamente);
 		
-		return "medicamenteReteta";
+		return "addDrugs1";
 		
 	}
 	
@@ -106,7 +116,8 @@ public class RetetaController {
 		
 		model.addAttribute("medicamentList", medicamentList);
 		model.addAttribute("reteta", reteta);
-		return "medicamenteReteta";		
+//		return "medicamenteReteta";	
+		return "addDrugs1";
 	}
 	
 }

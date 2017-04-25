@@ -69,22 +69,31 @@ public class UserController {
 	}
 	
 	@RequestMapping(value={"/welcome"}, method = RequestMethod.GET)
-	public String welcomeMedic(ModelMap model){
+	public String welcome(ModelMap model){
 		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	      String name = auth.getName();
 	      User user = userService.findByEmail(name);
 	      model.addAttribute("user",user);
 	      
+
+		return "welcome1";
+	}
+	
+	@RequestMapping(value={"/patientList"}, method = RequestMethod.GET)
+	public String listPacients(ModelMap model){
+		org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	      String name = auth.getName();
+	      User user = userService.findByEmail(name);
+	      model.addAttribute("user",user);
 	      Medic medic = medicService.findByUser(user);
 	      List<Pacient> pacienti = pacientService.findAllByMedic(medic);
 	      List<User> useri = new LinkedList<User>();
-    	 
-   	      for(Pacient p : pacienti){
-   	    	  	useri.add(p.getUser());
-   	      }
-   	      model.addAttribute("useri",useri);
-   	      
-		return "welcome";
+ 	 
+	      for(Pacient p : pacienti){
+ 	    	  	useri.add(p.getUser());
+	      }
+ 	      model.addAttribute("useri",useri);
+		return "patientList1";
 	}
 	
 	@RequestMapping(value={"/addPacient"}, method = RequestMethod.GET)
@@ -112,16 +121,14 @@ public class UserController {
 		}
 		return "addPacient";
 	}
-	@RequestMapping(value="/reteta-{user_email}-pacient",  method = RequestMethod.GET)
-	public String reteta(@PathVariable String user_email, ModelMap model){
-		
-		User user = userService.findByEmail(user_email);
-      	Pacient pacient = pacientService.findByUser(user);
-        model.addAttribute("employee",pacient);
-        Reteta reteta = new Reteta();
-        model.addAttribute("reteta", reteta);
-		return "reteta";
-	}
+
+
+//	@RequestMapping(value="/bla",  method = RequestMethod.GET)
+//	public String reteta(){
+//		
+//		
+//		return "welcome1";
+//	}
 	
 
 }
